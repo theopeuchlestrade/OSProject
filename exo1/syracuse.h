@@ -8,7 +8,6 @@
 #include <unistd.h>
 #include <pthread.h>
 
-
 #define SIZE 1000
 #define NB_THREAD 10
 
@@ -22,5 +21,6 @@ typedef struct syracuse_args
 } syracuse_args;
 
 int funSyracuse(int n);
+int thread_compute(void *data);
 
-#endif //OSPROJECT_SYRACUSE_H
+#endif // OSPROJECT_SYRACUSE_H

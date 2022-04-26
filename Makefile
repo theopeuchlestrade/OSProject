@@ -53,7 +53,7 @@ ifeq ($(DEBUG),yes)
 else
 
 endif
-	$(CC) -o ./build/bin$@ ./build/$^ $(LDFLAGS) # TODO change
+	$(CC) -o ./build/bin$@ $(addprefix ./build/, $(EXO2_OBJ)) $(LDFLAGS) # TODO change
 
 exo2.o: $(EXO2_INCLUDES)
 
