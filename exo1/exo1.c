@@ -1,11 +1,20 @@
-//
-// Created by Dorian Hardy on 25/04/2022.
-//
 
 #include "exo1.h"
 #include <stdio.h>
+#include "syracuse.h"
 
-int main(int argc, char *argv[]) {
-    printf("Exercice 1\n");
+
+
+int main()
+{
+
+    // Tableau qui stocke les valeurs de la fonction de syracuse
+    int *syracuse;
+
+    syracuse = (int *)malloc((SIZE + 1) * sizeof(int));
+
+    free(syracuse);
     return 0;
 }
+
+

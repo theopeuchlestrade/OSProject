@@ -35,12 +35,13 @@ endif
 
 exo1: $(EXO1_OBJ)
 ifeq ($(DEBUG),yes)
+	@echo "ojects : " $(EXO1_OBJ)
 	@echo "\033[92m[info]\033[0m Linking :" $@ $^
 else
 
 endif
-	@$(CC) -o ./build/bin$@ ./build/$^ $(LDFLAGS) # TODO change
-
+	#$(CC) -o ./build/bin$@ ./build/$^ $(LDFLAGS) # TODO change
+	$(CC) -o ./build/bin$@ $(addprefix ./build/, $(EXO1_OBJ)) $(LDFLAGS) # TODO change
 
 
 exo1.o: $(EXO1_INCLUDES)
@@ -53,7 +54,6 @@ else
 
 endif
 	$(CC) -o ./build/bin$@ ./build/$^ $(LDFLAGS) # TODO change
-
 
 exo2.o: $(EXO2_INCLUDES)
 
