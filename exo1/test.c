@@ -1,6 +1,6 @@
 
 #include <stdio.h>
-#include "cache.h"
+#include "syracuse.h"
 /*
 int main(int argc, char *argv[]) {
 
@@ -26,4 +26,32 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
+ */
+/*
+int main(int argc, char *argv[]) {
+
+    printf("%d\n" , argc);
+    if (argc == 3 ) {
+
+        int input_size  =  atoi(argv[1]);
+        int input_number = atoi(argv[2]);
+
+        int *syracuse = (int *)malloc((input_size + 1) * sizeof(int));
+
+        funSyracuse(input_number, syracuse, input_size) ;
+
+        for (int i = 0; i < 10 ; ++i) {
+            printf("index = %d => %d\n", i, syracuse[i]);
+        }
+
+        free(syracuse);
+    } else {
+
+        printf("Missing args format size syracuse\n");
+        printf("Exemple : ./exo1 10 5 \n");
+        return 1;
+    }
+
+    return 0;
+}
  */

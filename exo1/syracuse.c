@@ -1,37 +1,38 @@
-#include <syracuse.h>
+#include "syracuse.h"
+#include <pthread.h>
 
 int thread_compute(void *data) // pass struc
 {
 
-    syracuse_args args = (syracuse_args)data;
+    // syracuse_args args = (syracuse_args) data;
 
-    // do the math here ....
-
-    printf("Thread %ld termine. \n", thread_index);
-    return thrd_success;
+    // return thrd_success;
 }
 
 // int pthread_create(pthread_t *thread, pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
 
 // Fonction réalisant la suite de Syracuse à partir de l'entier n.
-int funSyracuse(int n, int tab[])
+void funSyracuse(int n, int *tab, int table_size)
 {
-    int i = 0;
-    int x = n;
-    while (n != 0)
+    tab[0] = table_size;
+    int i = 1;
+    printf("%d =>  %d\n", 0, tab[0]);
+
+    while (n > 1)
     {
-        if (x % 2 == 0)
+        if (n % 2 == 0)
         {
-            x = x / 2;
-            tab[i] = x;
+            n /= 2; // quotient
+            tab[i] = n;
+            printf("%d =>  %d\n", i, n);
             i++;
         }
-        else if (x % 2 != 0)
+        else
         {
-            x = 3 * x + 1;
-            tab[i] = x;
+            n = 3 * n + 1;
+            tab[i] = n;
+            printf("%d =>  %d\n", i, n);
             i++;
         }
     }
-    return -1;
 }

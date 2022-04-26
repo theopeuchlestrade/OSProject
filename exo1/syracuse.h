@@ -13,14 +13,14 @@
 
 /*Exemple de structure contenant les arguments passes a chaque thread
  * Chaque thread devrai calculer syracuse de start jusqu'à end
- * */
+ */
 typedef struct syracuse_args
 {
     int start;
     int end;
-} syracuse_args;
+} syracuse_args_t;
 
-int funSyracuse(int n);
+void funSyracuse(int n, int *tab, int table_size);
 int thread_compute(void *data);
 
 #endif // OSPROJECT_SYRACUSE_H
