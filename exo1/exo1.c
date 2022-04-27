@@ -5,22 +5,25 @@
 #include "syracuse.h"
 #include "cache.h"
 #include <assert.h>
+#include <unistd.h>
 
 
 void *thread_compute(void *arg) {
 
-    syracuse_args_t range = *(syracuse_args_t *) arg;
+    syracuse_args_t  *range = (syracuse_args_t *) arg;
 
-    printf("Thread : %d will work on range %d, %d \n", (int) getpid(), range.start, range.end);
+    printf("Thread : %d will work on range %d, %d \n", (int) getpid(), range->start, range->end);
 
-    int i = range.start;
+    int i = range->start;
 
-    for (range.start; i < range.end; i++) {
-        funSyracuse(i, range.tab, SIZE);
+    for (range->start; i < range->end; i++) {
+        printf("thread %d is computing : %d\n", range->thread_id, i );
+        range->tab[i] = get_time_of_flight_recursive(i,range->cache);
+
+        // sleep(1) ;
     }
 
-
-    pthread_exit(NULL);
+    return NULL;
 }
 
 int main() {
@@ -43,21 +46,24 @@ int main() {
     pthread_t thread_3; // 21 to 30
 
     syracuse_args_t first = {
-            .cache = cache,
+            .thread_id =  1,
+            .cache = &cache,
             .tab = syracuse,
             .start = 1,
             .end = 10
     };
 
     syracuse_args_t sec = {
-            .cache = cache,
+            .thread_id =  2,
+            .cache = &cache,
             .tab = syracuse,
             .start = 11,
             .end = 20
     };
 
     syracuse_args_t third = {
-            .cache = cache,
+            .thread_id =  3,
+            .cache = &cache,
             .tab = syracuse,
             .start = 21,
             .end = 30
@@ -78,6 +84,8 @@ int main() {
     pthread_join(thread_3, NULL);
 
     printf("End of threads \n");
+
+    // display_syracuse(syracuse);
 
     free(syracuse);
     cache_destroy(&cache);

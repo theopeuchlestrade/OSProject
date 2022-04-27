@@ -14,13 +14,16 @@
 
 
 typedef struct syracuse_args {
-    cache_t cache;
+    int thread_id ;
+    cache_t *cache;
     int *tab;
     int start;
     int end;
 } syracuse_args_t;
 
 int get_time_of_flight(int n, int *tab, int table_size);
+int get_time_of_flight_recursive(int n, cache_t *cache);
 
+void display_syracuse(int *tab);
 
 #endif // OSPROJECT_SYRACUSE_H

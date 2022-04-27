@@ -1,11 +1,12 @@
 #include "cache.h"
 #include <string.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 
 static cache_entry_t *cache_entry_find(cache_t *cache, int key) {
 
-    for (int i = 0; i < cache->lenght; ++i) {
+    for (int i = 0; i < cache->length; ++i) {
         cache_entry_t *entry = &cache->entries[i];
 
         if (entry->key == key) {
@@ -40,20 +41,20 @@ void cache_set(cache_t *cache, int key, int val) {
         entry->val = val;
     } else {
 
-        cache_entry_t *new_entries = calloc(cache->lenght + 1, sizeof(cache_entry_t));
+        cache_entry_t *new_entries = calloc(cache->length + 1, sizeof(cache_entry_t));
 
         if (cache->entries) {
-            memcpy(new_entries, cache->entries, cache->lenght * sizeof(cache_entry_t));
+            memcpy(new_entries, cache->entries, cache->length * sizeof(cache_entry_t));
             free(cache->entries);
         }
         cache->entries = new_entries;
 
-        entry = &cache->entries[cache->lenght];
+        entry = &cache->entries[cache->length];
 
         entry->key = key;
         entry->val = val;
 
-        cache->lenght++;
+        cache->length++;
 
     }
 
@@ -70,7 +71,7 @@ void cache_del(cache_t *cache, int key) {
 
         memmove(entry, entry + 1, entry - cache->entries);
 
-        cache->lenght--;
+        cache->length--;
 
     }
     sem_post(&cache->lock);
@@ -81,11 +82,19 @@ void cache_init(cache_t *cache) {
 
     sem_init(&cache->lock, 0, 1);
 
-    cache->lenght = 0;
+    cache->length = 0;
     cache->entries = NULL;
 }
 
 void cache_destroy(cache_t *cache) {
     sem_close(&cache->lock);
     free(cache->entries);
+}
+
+void cache_dump(cache_t *cache) {
+    printf("[ cache dump ] \n") ;
+    for (int i = 0; i < cache->length; ++i) {
+        cache_entry_t *entry = &cache->entries[i];
+        printf("[ %5d | %5d ]\n", entry->key, entry->val);
+    }
 }

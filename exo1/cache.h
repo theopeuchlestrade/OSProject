@@ -11,7 +11,7 @@ typedef struct cache_entry {
 
 typedef struct cache {
     sem_t lock;
-    int lenght;
+    int length;
     cache_entry_t *entries;
 
 } cache_t;
@@ -26,5 +26,7 @@ int cache_get(cache_t *cache, int key);
 void cache_init(cache_t *cache);
 
 void cache_destroy(cache_t *cache);
+
+void cache_dump(cache_t *cache);
 
 #endif //OSPROJECT_CACHE_H
