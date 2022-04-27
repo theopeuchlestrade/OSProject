@@ -1,13 +1,6 @@
 #include "syracuse.h"
 #include <pthread.h>
 
-int thread_compute(void *data) // pass struc
-{
-
-    // syracuse_args args = (syracuse_args) data;
-
-    // return thrd_success;
-}
 
 // int pthread_create(pthread_t *thread, pthread_attr_t *attr, void *(*start_routine)(void *), void *arg);
 
@@ -35,4 +28,17 @@ void funSyracuse(int n, int *tab, int table_size)
             i++;
         }
     }
+}
+
+int flight_time(int *tab) {
+
+    int step = 0 ;
+    int index = 0 ;
+
+    while (tab[index] != 1 ) {
+        step++;
+        index++;
+    }
+
+    return step;
 }
