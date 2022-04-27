@@ -7,61 +7,59 @@
 #include <assert.h>
 
 
-void *thread_compute(void *arg){
+void *thread_compute(void *arg) {
 
-    syracuse_args_t range = *(syracuse_args_t*) arg;
+    syracuse_args_t range = *(syracuse_args_t *) arg;
 
     printf("Thread : %d will work on range %d, %d \n", (int) getpid(), range.start, range.end);
 
-    int i = range.start ;
+    int i = range.start;
 
-    for(range.start;  i < range.end ;  i++)
-    {
+    for (range.start; i < range.end; i++) {
         funSyracuse(i, range.tab, SIZE);
     }
 
 
-    pthread_exit(NULL) ;
+    pthread_exit(NULL);
 }
 
-int main()
-{
+int main() {
 
     // Tableau qui stocke les valeurs de la fonction de syracuse
     int *syracuse;
-    syracuse = (int *)calloc((SIZE + 1) , sizeof(int)); // init a 0 ;
+    syracuse = (int *) calloc((SIZE + 1), sizeof(int)); // init a 0 ;
 
 
     // assert( syracuse != NULL );
 
 
     /* prepare cache  */
-    cache_t cache ;
+    cache_t cache;
     cache_init(&cache);
 
 
-    pthread_t thread_1 ; // 1 to 10
-    pthread_t thread_2 ; // 11 to 20
-    pthread_t thread_3 ; // 21 to 30
+    pthread_t thread_1; // 1 to 10
+    pthread_t thread_2; // 11 to 20
+    pthread_t thread_3; // 21 to 30
 
     syracuse_args_t first = {
             .cache = cache,
             .tab = syracuse,
-            .start = 1 ,
+            .start = 1,
             .end = 10
     };
 
     syracuse_args_t sec = {
             .cache = cache,
             .tab = syracuse,
-            .start = 11 ,
+            .start = 11,
             .end = 20
     };
 
     syracuse_args_t third = {
             .cache = cache,
             .tab = syracuse,
-            .start = 21 ,
+            .start = 21,
             .end = 30
     };
 
@@ -75,13 +73,14 @@ int main()
 
     /* Wait threads */
 
-    pthread_join(thread_1,NULL);
-    pthread_join(thread_2,NULL);
-    pthread_join(thread_3,NULL);
+    pthread_join(thread_1, NULL);
+    pthread_join(thread_2, NULL);
+    pthread_join(thread_3, NULL);
 
     printf("End of threads \n");
 
     free(syracuse);
+    cache_destroy(&cache);
 
     return EXIT_SUCCESS;
 }
