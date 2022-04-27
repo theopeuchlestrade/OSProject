@@ -45,11 +45,6 @@ int main(int argc, char *argv[]) {
         }
 
         free(syracuse);
-    } else {
-
-        printf("Missing args format size syracuse\n");
-        printf("Exemple : ./exo1 10 5 \n");
-        return 1;
     }
 
     return 0;
