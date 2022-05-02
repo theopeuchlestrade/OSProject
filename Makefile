@@ -1,7 +1,7 @@
 DEBUG=yes
 PROG=exo1 exo2
 
-CC 				:=
+CC := gcc
 ifeq ($(OS),Windows_NT)
 	CC=gcc
 else
@@ -12,8 +12,8 @@ else
 	ifeq ($(UNAME_S),Darwin)
 		CC=clang
 	endif
-
 endif
+
 
 ifeq ($(DEBUG),yes)
     CFLAGS=-g3 -fsanitize=address -Wall -pthread 
@@ -37,12 +37,12 @@ EXO1_INCLUDES=$(wildcard exo1/*.h)
 EXO2_INCLUDES=$(wildcard exo2/*.h)
 
 all: $(PROG)
+
 ifeq ($(DEBUG),yes)
 	@echo "Building in debug mode"
 else
 	@echo "Building in release mode"
 endif
-
 
 # Exo 1 #
 
