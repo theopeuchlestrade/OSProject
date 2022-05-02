@@ -1,6 +1,19 @@
 DEBUG=yes
 PROG=exo1 exo2
-CC=gcc
+
+CC 				:=
+ifeq ($(OS),Windows_NT)
+	CC=gcc
+else
+	UNAME_S := $(shell uname -s)
+	ifeq ($(UNAME_S),Linux)
+		CC=gcc
+	endif
+	ifeq ($(UNAME_S),Darwin)
+		CC=clang
+	endif
+
+endif
 
 ifeq ($(DEBUG),yes)
     CFLAGS=-g3 -fsanitize=address -Wall -pthread 
