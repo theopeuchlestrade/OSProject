@@ -1,10 +1,10 @@
 DEBUG=yes
 PROG=exo1 exo2
-CC=clang
+CC=gcc
 
 ifeq ($(DEBUG),yes)
-    CFLAGS=-g3 -Wall -pthread
-    LDFLAGS=
+    CFLAGS=-g3 -fsanitize=address -Wall -pthread 
+    LDFLAGS= -fsanitize=address
 else
     CFLAGS=-Wall -pthread
     LDFLAGS=
