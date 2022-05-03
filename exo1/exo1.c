@@ -35,42 +35,64 @@ int main(int argc, char *argv[])
         int input_size = atoi(argv[1]);
         printf("SIZE = %d\n", input_size);
 
-        int *syracuse;
-        syracuse = (int *)calloc((input_size), sizeof(int)); // init a 0 ;
-
-        // assert( syracuse != NULL );
-
+        //Get number of iterations
+        int nb_iteration = (int) input_size/NB_THREAD;
         /* prepare cache  */
         cache_t cache;
         cache_init(&cache);
 
-        //(int)(input_size/NB_THREAD)
-        int USABLE_THREADS = (int)((input_size - 1) / NB_THREAD) + 1 ;
-        pthread_t thread[USABLE_THREADS]; // 1 to 10 , 11 to 20 , 21 to 30
+        pthread_t thread[NB_THREAD];
 
-        syracuse_args_t *schema = calloc(USABLE_THREADS, sizeof(syracuse_args_t));
+        int nb_thread = 0;
+        if(input_size < 10){
+            nb_thread = 1;
+        }else if(input_size < 20){
+            nb_thread = 2;
+        }else if(input_size < 30){
+            nb_thread = 3;
+        }else if(input_size < 40){
+            nb_thread = 4;
+        }else if(input_size < 50){
+            nb_thread = 5;
+        }else if(input_size < 60){
+            nb_thread = 6;
+        }else if(input_size < 70){
+            nb_thread = 7;
+        }else if(input_size < 80){
+            nb_thread = 8;
+        }else if(input_size < 90){
+            nb_thread = 9;
+        }else{
+            nb_thread = 10;
+        }
+
+        // assert( syracuse != NULL );
+        int *syracuse = (int *)calloc((nb_iteration), sizeof(int)); // init a 0 ;
+        
+        syracuse_args_t *schema = calloc(nb_thread, sizeof(syracuse_args_t));
         // Init threads args
-        for (int num_thread = 0; num_thread < USABLE_THREADS; num_thread++)
+        for (int num_thread = 0; num_thread < nb_thread; num_thread++)
         {
             schema[num_thread].thread_id = num_thread,
             schema[num_thread].cache = &cache,
             schema[num_thread].tab = syracuse,
-            schema[num_thread].start = num_thread * 10 + 1,
-            schema[num_thread].end = (num_thread + 1) * 10;
+            schema[num_thread].start = nb_iteration * num_thread,
+            schema[num_thread].end = nb_iteration * (num_thread+1) - 1;
+            printf("Num schema[%d] : start = %d, end = %d\n", num_thread, schema[num_thread].start, schema[num_thread].end);
         }
 
         printf("pid of main is : %d\n", (int)getpid());
 
         /* Create threads */
-        for (int i = 0; i < USABLE_THREADS; i++)
+        for (int num_thread = 0; num_thread < nb_thread; num_thread++)
         {
-            pthread_create(&thread[i], NULL, &thread_compute, &schema[i]);
+            pthread_create(&thread[num_thread], NULL, &thread_compute, &schema[num_thread]);
         }
 
         /* Wait threads */
-        for (int i = 0; i < USABLE_THREADS; i++)
+        for (int num_thread = 0; num_thread < nb_thread; num_thread++)
         {
-            pthread_join(thread[i], NULL);
+            pthread_join(thread[num_thread], NULL);
         }
 
         printf("End of threads \n");
