@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
         for(int nb = 0; nb < input_size+1; nb++) printf("Syracuse de %d est %d.\n", nb, syracuse[nb]);
         
         free(syracuse);
-        //free(schema);
+        free(schema);
         cache_destroy(&cache);
     }
     else
