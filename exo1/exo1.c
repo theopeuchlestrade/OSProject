@@ -1,10 +1,14 @@
 #include "exo1.h"
 #include "syracuse.h"
+#include "utils.h"
+
 #include "cache.h"
 #include <stdio.h>
 #include <pthread.h>
 #include <assert.h>
 #include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
 void *thread_compute(void *arg)
 {
@@ -14,10 +18,12 @@ void *thread_compute(void *arg)
     printf("Thread : %d will work on range %d, %d \n", (int)getpid(), range->start, range->end);
 
     int i = range->start;
-    printf("Valeur de i : %d\n",i);
+
     while(i <= range->end)
     {
-        printf("thread %d is computing : %d\n", range->thread_id, i);
+
+        debug("thread %d is computing : %d\n", range->thread_id, i);
+
         range->tab[i] = get_time_of_flight_recursive(i, range->cache);
         printf("Value of %d get calculated !\n", i);
         // sleep(1);
@@ -29,6 +35,9 @@ void *thread_compute(void *arg)
 
 int main(int argc, char *argv[])
 {
+    // check if debug is enable
+
+
 
     if (argc == 2)
     {
@@ -42,11 +51,11 @@ int main(int argc, char *argv[])
         pthread_t thread[NB_THREAD];
 
         int nb_thread = 0;
-        if(input_size <= 10){
+        if(input_size <= 10) {
             nb_thread = 1;
-        }else if(input_size <= 20){
+        }else if(input_size <= 20) {
             nb_thread = 2;
-        }else if(input_size <= 30){
+        }else if(input_size <= 30) {
             nb_thread = 3;
         }else if(input_size <= 40){
             nb_thread = 4;
