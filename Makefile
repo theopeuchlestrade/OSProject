@@ -53,7 +53,6 @@ ifeq ($(DEBUG),yes)
 else
 
 endif
-	#$(CC) -o ./build/bin$@ ./build/$^ $(LDFLAGS) # TODO change
 	$(CC) -o ./build/bin$@ $(addprefix ./build/, $(EXO1_OBJ)) $(LDFLAGS) # TODO change
 
 

@@ -15,17 +15,17 @@ void *thread_compute(void *arg)
 
     syracuse_args_t *range = (syracuse_args_t *)arg;
 
-    printf("Thread : %d will work on range %d, %d \n", (int)getpid(), range->start, range->end);
+    // printf("Thread : %d will work on range %d, %d \n", (int)getpid(), range->start, range->end);
 
     int i = range->start;
 
     while(i <= range->end)
     {
 
-        debug("thread %d is computing : %d\n", range->thread_id, i);
+        // debug("thread %d is computing : %d\n", range->thread_id, i);
 
         range->tab[i] = get_time_of_flight_recursive(i, range->cache);
-        printf("Value of %d get calculated !\n", i);
+        // debug("Value of %d get calculated !\n", i);
         // sleep(1);
         i++;
     }
@@ -89,18 +89,22 @@ int main(int argc, char *argv[])
             schema[num_thread].cache = &cache,
             schema[num_thread].tab = syracuse,
             schema[num_thread].start = nb_iteration * num_thread + 1;
-            if(num_thread == nb_thread -1){ schema[num_thread].end = input_size;}
-            else {schema[num_thread].end = nb_iteration * (num_thread+1);}
-            printf("Num schema[%d] : start = %d, end = %d\n", num_thread, schema[num_thread].start, schema[num_thread].end);
+            if (num_thread == nb_thread - 1) {
+                schema[num_thread].end = input_size;
+            }
+            else {
+                schema[num_thread].end = nb_iteration * (num_thread + 1);
+            }
+            // debug("Num schema[%d] : start = %d, end = %d\n", num_thread, schema[num_thread].start, schema[num_thread].end);
         }
 
-        printf("pid of main is : %d\n", (int)getpid());
+        // debug("pid of main is : %d\n", (int)getpid());
 
         /* Create threads */
         for (int num_thread = 0; num_thread < nb_thread; num_thread++)
         {
             pthread_create(&thread[num_thread], NULL, &thread_compute, &schema[num_thread]);
-            printf("Creating the thread %d.\n", num_thread);
+            // debug("Creating the thread %d.\n", num_thread);
         }
 
 
@@ -110,7 +114,7 @@ int main(int argc, char *argv[])
             pthread_join(thread[num_thread], NULL);
         }
 
-        printf("End of threads \n");
+        debug("End of threads \n");
 
         //display_syracuse(syracuse);
 
@@ -123,8 +127,8 @@ int main(int argc, char *argv[])
     else
     {
 
-        printf("Missing args format size syracuse\n");
-        printf("Exemple : ./exo1 10\n");
+        debug("Missing args format size syracuse\n");
+        debug("Exemple : ./exo1 10\n");
         return EXIT_FAILURE;
     }
 
