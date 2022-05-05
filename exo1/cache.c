@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <errno.h>
 
 static cache_entry_t *cache_entry_find(cache_t *cache, int key) {
 
@@ -19,21 +19,30 @@ static cache_entry_t *cache_entry_find(cache_t *cache, int key) {
 
 
 int cache_get(cache_t *cache, int key) {
-    sem_wait(&cache->lock);
+    sem_wait(cache->lock);
 
     cache_entry_t *entry = cache_entry_find(cache, key);
 
-    sem_post(&cache->lock);
-
+    int ret = -1 ;
     if (entry) {
-        return entry->val;
+        ret = entry->val;
     }
-    return -1;
+
+    sem_post(cache->lock);
+
+    return  ret;
 }
 
 void cache_set(cache_t *cache, int key, int val) {
 
-    sem_wait(&cache->lock);
+    if (sem_wait(cache->lock) == -1 ) {
+        perror("sem_lock");
+        abort();
+    }
+
+    int l ;
+    sem_getvalue(cache->lock, &l);
+
 
     cache_entry_t *entry = cache_entry_find(cache, key);
 
@@ -57,13 +66,12 @@ void cache_set(cache_t *cache, int key, int val) {
         cache->length++;
 
     }
-
-    sem_post(&cache->lock);
+    sem_post(cache->lock);
 
 }
 
 void cache_del(cache_t *cache, int key) {
-    sem_wait(&cache->lock);
+    sem_wait(cache->lock);
 
     cache_entry_t *entry = cache_entry_find(cache, key);
 
@@ -74,20 +82,26 @@ void cache_del(cache_t *cache, int key) {
         cache->length--;
 
     }
-    sem_post(&cache->lock);
+    sem_post(cache->lock);
 }
 
 
 void cache_init(cache_t *cache) {
-
-    sem_init(&cache->lock, 0, 1);
+    sem_unlink("exo1");
+    errno = 0 ;
+    cache->lock = sem_open("exo1", O_CREAT, 0777, 1);
+    if (errno) {
+        perror("sem_open");
+        abort();
+    }
 
     cache->length = 0;
     cache->entries = NULL;
 }
 
 void cache_destroy(cache_t *cache) {
-    sem_close(&cache->lock);
+    sem_close(cache->lock);
+    sem_unlink("exo1");
     free(cache->entries);
 }
 

@@ -10,7 +10,7 @@ typedef struct cache_entry {
 } cache_entry_t;
 
 typedef struct cache {
-    sem_t lock;
+    sem_t *lock;
     int length;
     cache_entry_t *entries;
 

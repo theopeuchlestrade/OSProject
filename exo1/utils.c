@@ -3,7 +3,6 @@
 //
 
 #include "utils.h"
-
 #include <stdarg.h>
 
 void debug(char *message, ...){

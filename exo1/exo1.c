@@ -10,6 +10,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define free(x) printf("%s:%d free %p\n", __FILE__, __LINE__,x); free(x);
+
 void *thread_compute(void *arg)
 {
 
