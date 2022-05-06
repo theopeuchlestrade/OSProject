@@ -87,7 +87,10 @@ void cache_del(cache_t *cache, int key) {
 
 
 void cache_init(cache_t *cache) {
-    sem_unlink("exo1");
+
+
+    sem_unlink("exo1");  // Force to remove sem from system
+
     errno = 0 ;
     cache->lock = sem_open("exo1", O_CREAT, 0777, 1);
     if (errno) {
@@ -100,8 +103,21 @@ void cache_init(cache_t *cache) {
 }
 
 void cache_destroy(cache_t *cache) {
-    sem_close(cache->lock);
-    sem_unlink("exo1");
+    // sem_close(cache->lock);
+
+    // Close semaforo
+    if (sem_close(cache->lock) == -1) {
+        perror("Error at sem_close()!\n");
+        exit(EXIT_FAILURE);
+    }
+
+
+    if (sem_unlink("exo1") == -1) {
+        perror("Error at sem_unlink()!\n");
+        printf("Error: %s\n", strerror(errno));
+        exit(EXIT_FAILURE);
+    }
+
     free(cache->entries);
 }
 

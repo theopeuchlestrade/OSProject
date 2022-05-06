@@ -3,6 +3,7 @@
 #define OSPROJECT_CACHE_H
 
 #include <semaphore.h>
+#include <fcntl.h> // load O_CREAT
 
 typedef struct cache_entry {
     int key;
