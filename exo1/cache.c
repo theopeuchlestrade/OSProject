@@ -87,17 +87,19 @@ void cache_del(cache_t *cache, int key) {
 
 
 void cache_init(cache_t *cache) {
-
-
-    sem_unlink("exo1");  // Force to remove sem from system
+  
+    sem_unlink(NAME_SEMAPHORE);  // Force to remove sem from system
 
     errno = 0 ;
-    cache->lock = sem_open("exo1", O_CREAT, 0777, 1);
+    cache->lock = sem_open(NAME_SEMAPHORE, O_RDWR|O_CREAT|O_EXCL, 0777, 1);
+    if(cache->lock == SEM_FAILED){
+        printf("Merde !\n");
+    }
+    
     if (errno) {
         perror("sem_open");
         abort();
     }
-
     cache->length = 0;
     cache->entries = NULL;
 }
@@ -112,7 +114,7 @@ void cache_destroy(cache_t *cache) {
     }
 
 
-    if (sem_unlink("exo1") == -1) {
+    if (sem_unlink(NAME_SEMAPHORE) == -1) {
         perror("Error at sem_unlink()!\n");
         printf("Error: %s\n", strerror(errno));
         exit(EXIT_FAILURE);

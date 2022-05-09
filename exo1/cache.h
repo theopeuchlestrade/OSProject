@@ -5,6 +5,8 @@
 #include <semaphore.h>
 #include <fcntl.h> // load O_CREAT
 
+#define NAME_SEMAPHORE "name_sema"
+
 typedef struct cache_entry {
     int key;
     int val;

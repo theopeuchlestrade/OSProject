@@ -39,18 +39,14 @@ int main(int argc, char *argv[])
 {
     // check if debug is enable
 
-
-
     if (argc == 2)
     {
         int input_size = atoi(argv[1]);
         printf("SIZE = %d\n", input_size);
-        
+
         /* prepare cache  */
         cache_t cache;
         cache_init(&cache);
-
-        pthread_t thread[NB_THREAD];
 
         int nb_thread = 0;
         if(input_size <= 10) {
@@ -75,6 +71,8 @@ int main(int argc, char *argv[])
             nb_thread = 10;
         }
 
+        pthread_t thread[nb_thread];
+        
         //Get number of iterations
         int nb_iteration = 0; 
         if(input_size %2 == 1) nb_iteration = (int) (input_size + 1)/nb_thread;
