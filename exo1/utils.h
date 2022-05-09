@@ -1,6 +1,3 @@
-//
-// Created by Dorian Hardy on 04/05/2022.
-//
 
 #ifndef OSPROJECT_UTILS_H
 #define OSPROJECT_UTILS_H

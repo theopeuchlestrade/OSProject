@@ -1,6 +1,4 @@
-//
-// Created by Dorian Hardy on 04/05/2022.
-//
+
 
 #include "utils.h"
 #include <stdarg.h>

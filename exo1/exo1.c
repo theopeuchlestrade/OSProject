@@ -25,10 +25,7 @@ void *thread_compute(void *arg)
     {
 
         // debug("thread %d is computing : %d\n", range->thread_id, i);
-
         range->tab[i] = get_time_of_flight_recursive(i, range->cache);
-        // debug("Value of %d get calculated !\n", i);
-        // sleep(1);
         i++;
     }
 

@@ -14,7 +14,7 @@ else
 	endif
 endif
 
-
+# TODO remove -fsanitize=address on windows
 ifeq ($(DEBUG),yes)
     CFLAGS=-g3 -fsanitize=address -Wall -pthread 
     LDFLAGS= -fsanitize=address
