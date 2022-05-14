@@ -45,28 +45,8 @@ int main(int argc, char *argv[])
         cache_t cache;
         cache_init(&cache);
 
-        int nb_thread = 0;
-        if(input_size <= 10) {
-            nb_thread = 1;
-        }else if(input_size <= 20) {
-            nb_thread = 2;
-        }else if(input_size <= 30) {
-            nb_thread = 3;
-        }else if(input_size <= 40){
-            nb_thread = 4;
-        }else if(input_size <= 50){
-            nb_thread = 5;
-        }else if(input_size <= 60){
-            nb_thread = 6;
-        }else if(input_size <= 70){
-            nb_thread = 7;
-        }else if(input_size <= 80){
-            nb_thread = 8;
-        }else if(input_size <= 90){
-            nb_thread = 9;
-        }else{
-            nb_thread = 10;
-        }
+        int nb_thread = (int) (input_size / 10) + 1;
+        if(nb_thread > NB_THREAD) nb_thread = 10;
 
         pthread_t thread[nb_thread];
         
