@@ -15,7 +15,6 @@ For gcc use build-essential to get additional libs.
 sudo apt install build-essential 
 ```
 
-
 ## Compile 
 Use make to build the project. 
 
