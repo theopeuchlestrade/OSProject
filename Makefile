@@ -16,10 +16,10 @@ endif
 
 ifeq ($(DEBUG),yes)
     CFLAGS=-g3 -fsanitize=address -Wall -pthread 
-    LDFLAGS= -fsanitize=address
+    LDFLAGS= -fsanitize=address  -pthread
 else
     CFLAGS=-Wall -pthread
-    LDFLAGS=
+    LDFLAGS= -pthread
 endif
 
 COMPILE=$(CC) $(CFLAGS)
