@@ -62,9 +62,9 @@ int main(int argc, char *argv[])
         // Init threads args
         for (int num_thread = 0; num_thread < nb_thread; num_thread++)
         {
-            schema[num_thread].thread_id = num_thread,
-            schema[num_thread].cache = &cache,
-            schema[num_thread].tab = syracuse,
+            schema[num_thread].thread_id = num_thread;
+            schema[num_thread].cache = &cache;
+            schema[num_thread].tab = syracuse;
             schema[num_thread].start = nb_iteration * num_thread + 1;
             if (num_thread == nb_thread - 1) {
                 schema[num_thread].end = input_size;
