@@ -137,8 +137,7 @@ memory_print(t_memory *memory)
 	while (!BLOCK_IS_LAST(memory, block))
 	{
 		printf("block=%p start=%p flag=%s size=%d\n", block, block->start, FLAGS[block->flag], block->size);
-
-		block = BLOCK_NEXT(block);
+        block = BLOCK_NEXT(block);
 	}
 
 	MEMORY_UNLOCK(memory);

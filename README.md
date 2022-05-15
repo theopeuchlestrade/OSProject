@@ -37,13 +37,17 @@ Available target :
 
 ## Exercices Status 
 - [x] Exo01
-- [ ] Exo02
+- [x] Exo02
+
+## Run
+- Exo 1 : run ```./build/binexo1 10 ``` for flight of 10 
+- Exo 2 : run ```./build/binexo2 10 ``` for 10 lines of pascal. 
 
 ## Team    
 
-| Name        | Profile |
-| -------------------- | --------------------------|
-| Théo Peuchlestrade   | @theopeuchlestrade        |
-| Julian Rety          |  @Julian63800             |
-| Dorian Hardy         |  @thegostisdead           |
+| Name               | Profile            |
+|--------------------|--------------------|
+| Théo Peuchlestrade | @theopeuchlestrade |
+| Julian Rety        | @Julian63800       |
+| Dorian Hardy       | @thegostisdead     |
 
