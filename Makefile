@@ -14,7 +14,6 @@ else
 	endif
 endif
 
-# TODO remove -fsanitize=address on windows
 ifeq ($(DEBUG),yes)
     CFLAGS=-g3 -fsanitize=address -Wall -pthread 
     LDFLAGS= -fsanitize=address
@@ -53,7 +52,7 @@ ifeq ($(DEBUG),yes)
 else
 
 endif
-	$(CC) -o ./build/bin$@ $(addprefix ./build/, $(EXO1_OBJ)) $(LDFLAGS) # TODO change
+	$(CC) -o ./build/bin$@ $(addprefix ./build/, $(EXO1_OBJ)) $(LDFLAGS) 
 
 
 exo1.o: $(EXO1_INCLUDES)
@@ -65,7 +64,7 @@ ifeq ($(DEBUG),yes)
 else
 
 endif
-	$(CC) -o ./build/bin$@ $(addprefix ./build/, $(EXO2_OBJ)) $(LDFLAGS) # TODO change
+	$(CC) -o ./build/bin$@ $(addprefix ./build/, $(EXO2_OBJ)) $(LDFLAGS) 
 
 exo2.o: $(EXO2_INCLUDES)
 

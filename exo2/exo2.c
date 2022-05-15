@@ -1,31 +1,8 @@
-#include <assert.h>
-#include <pthread.h>
-#include <stdbool.h>
-#include <stddef.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
+#include "exo2.h"
 
 #include "memory.h"
 
-#ifndef NB_THREAD
-# define NB_THREAD 10
-#endif
-
 t_memory *memory;
-
-typedef struct
-{
-	int id;
-	int line;
-	int *previous_line;
-	int *current_line;
-	int start;
-	int end;
-} t_pascal_args;
-
-#define CAN_COMPUTE(args, value) ((args)->start <= value && value <= (args)->end)
 
 void*
 pascal_runner(void *data)
@@ -184,6 +161,7 @@ main(int argc, char **argv)
 	free(result);
 	printf("\n");
 
+	memory_print(memory);
 	memory_destroy(memory);
 
 	return (0);
