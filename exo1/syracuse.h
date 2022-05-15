@@ -10,8 +10,10 @@
 #include "cache.h"
 
 #define SIZE 1000
-#define NB_THREAD 10
 
+#ifndef NB_THREAD
+# define NB_THREAD 10
+#endif
 
 typedef struct syracuse_args {
     int thread_id ;

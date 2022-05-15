@@ -1,4 +1,4 @@
-DEBUG=yes
+DEBUG=no
 PROG=exo1 exo2
 
 CC := gcc

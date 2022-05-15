@@ -62,15 +62,15 @@ pascal_runner(void *data)
 			break;
 
 		default:
-			if (CAN_COMPUTE(args, 0))
-				args->current_line[0] = 1;
+			for (int index = args->start; index < args->end; index++){
+				if (CAN_COMPUTE(args, 0))
+					args->current_line[0] = 1;
 
-			if (CAN_COMPUTE(args, args->line))
-				args->current_line[args->line] = 1;
-
-			for (int index = args->start; index < args->end; index++)
+				if(CAN_COMPUTE(args, args->line))
+					args->current_line[args->line] = 1;
+				
 				args->current_line[index] = args->previous_line[index - 1] + args->previous_line[index];
-
+			}
 			break;
 	}
 
@@ -118,7 +118,7 @@ calculLigneSuivante(int *result, int line)
 	for (int index = 0; index < thread_count; index++)
 		pthread_join(threads[index], NULL);
 
-	memcpy(result, current_line_block->start, current_line_block->size);
+	memmove(result, current_line_block->start, current_line_block->size);
 
 	block_free(memory, current_line_block);
 

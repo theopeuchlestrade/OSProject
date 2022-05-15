@@ -24,7 +24,7 @@ void *thread_compute(void *arg)
     while(i <= range->end)
     {
 
-        // debug("thread %d is computing : %d\n", range->thread_id, i);
+        //debug("thread %d is computing : %d\n", range->thread_id, i);
         range->tab[i] = get_time_of_flight_recursive(i, range->cache);
         i++;
     }
@@ -45,8 +45,8 @@ int main(int argc, char *argv[])
         cache_t cache;
         cache_init(&cache);
 
-        int nb_thread = (int) (input_size / 10) + 1;
-        if(nb_thread > NB_THREAD) nb_thread = 10;
+        int nb_thread = (int) (input_size / NB_THREAD) + 1;
+        if(nb_thread > NB_THREAD) nb_thread = NB_THREAD;
 
         pthread_t thread[nb_thread];
         
@@ -72,7 +72,7 @@ int main(int argc, char *argv[])
             else {
                 schema[num_thread].end = nb_iteration * (num_thread + 1);
             }
-            // debug("Num schema[%d] : start = %d, end = %d\n", num_thread, schema[num_thread].start, schema[num_thread].end);
+            debug("Num schema[%d] : start = %d, end = %d\n", num_thread, schema[num_thread].start, schema[num_thread].end);
         }
 
         // debug("pid of main is : %d\n", (int)getpid());
@@ -81,7 +81,7 @@ int main(int argc, char *argv[])
         for (int num_thread = 0; num_thread < nb_thread; num_thread++)
         {
             pthread_create(&thread[num_thread], NULL, &thread_compute, &schema[num_thread]);
-            // debug("Creating the thread %d.\n", num_thread);
+            //debug("Creating the thread %d.\n", num_thread);
         }
 
 
