@@ -62,5 +62,5 @@ You can run this project in a docker container. Just build the image and start t
 | Name               | Profile                                                    |
 | ------------------ | ---------------------------------------------------------- |
 | Théo Peuchlestrade | [@theopeuchlestrade](https://github.com/theopeuchlestrade) |
-| Julian Rety        | [@Julian63800](https://github.com/julianrety)             |
+| Julian Rety        | [@julianrety](https://github.com/julianrety)             |
 | Dorian Hardy       | [@thegostisdead](https://github.com/thegostisdead)         |
